@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {useForm} from "react-hook-form";
  import { toast } from "sonner";
- import {email, z} from "zod"
+ import { z } from "zod"
  import { Button } from "@/components/ui/button";
 
  import { Card,
@@ -29,15 +29,16 @@ import {useForm} from "react-hook-form";
   import { authClient } from "@/lib/auth-client";
 
 const loginSchema = z.object({
-    email: z.email("Please enter a valid email address"),
-    password: z.string().min(1,"Password is required"),
+    email: z.string().email("Please enter a valid email address"),
+    password: z.string().min(1, "Password is required"),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export function LoginForm(){
     const router = useRouter();
-    const form = useForm<   LoginFormValues>({
+    const form = useForm<LoginFormValues>({
+        resolver: zodResolver(loginSchema),
         defaultValues: {
             email: "",
             password: "",
