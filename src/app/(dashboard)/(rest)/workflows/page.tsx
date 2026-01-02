@@ -9,6 +9,7 @@ const Page = async ()=>{
     await requireAuth();
 
     prefetchWorkflows();
+    
     return (
         <WorkflowsContainer>
         <HydrateClient>

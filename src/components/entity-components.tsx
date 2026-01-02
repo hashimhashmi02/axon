@@ -45,7 +45,7 @@ export const EntityHeader = ({
                     {newButtonLabel}
                 </Button>
              )}
-              {newButtonHerf  && !onNew&& (
+              {newButtonHerf && !onNew && (
                 <Button 
                 size= "sm"
                 asChild
