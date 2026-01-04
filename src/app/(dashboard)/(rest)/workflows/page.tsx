@@ -1,4 +1,4 @@
-import { WorkflowsContainer, WorkflowsList } from "@/features/workflows/components/workflows";
+import { WorkflowError, WorkflowLoading, WorkflowsContainer, WorkflowsList } from "@/features/workflows/components/workflows";
 import { workflowsParamsLoader } from "@/features/workflows/server/params-loader";
 import { prefetchWorkflows } from "@/features/workflows/server/prefetch";
 import { requireAuth } from "@/lib/auth-utils";
@@ -6,6 +6,7 @@ import { HydrateClient } from "@/trpc/server";
 import { SearchParams } from "nuqs";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import type { Workflow } from "@/generated/prisma/client";
 
 type Props = {
     searchParams: Promise<SearchParams>
@@ -20,8 +21,8 @@ const Page = async ({ searchParams }: Props) => {
     return (
         <WorkflowsContainer>
             <HydrateClient>
-                <ErrorBoundary fallback={<p>Error!</p>}>
-                    <Suspense fallback={<p>Loading...</p>}>
+                <ErrorBoundary fallback={<WorkflowError />}>
+                    <Suspense fallback={<WorkflowLoading />}>
                         <WorkflowsList />
                     </Suspense>
                 </ErrorBoundary>
