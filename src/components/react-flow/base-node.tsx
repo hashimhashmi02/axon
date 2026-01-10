@@ -8,12 +8,6 @@ interface BaseNodeProps extends HTMLAttributes<HTMLDivElement> {
   status?: NodeStatus;
 }
 
-
-
-
-
-
-
 export function BaseNode({ className, status, ...props }: BaseNodeProps) {
   return (
     <div
