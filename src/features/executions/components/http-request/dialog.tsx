@@ -11,9 +11,6 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
-
-
-
 const formSchema = z.object({
     endpoint: z.url({ message: "Please enter a valid URL" }),
     method: z.enum(["GET", "POST", "PUT", "DELETE", "PATCH"]),
@@ -22,8 +19,6 @@ const formSchema = z.object({
 
 
 export type FormType = z.infer<typeof formSchema>;
-
-
 
 interface Props {
     open: boolean;
