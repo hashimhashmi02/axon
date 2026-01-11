@@ -11,7 +11,6 @@ import { useEffect, useRef, useState } from "react";
 import { editorAtom } from "../store/atoms";
 
 
-
 export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
     const editor = useAtomValue(editorAtom);
     const saveWorkflow = useUpdateWorkflow();
@@ -51,7 +50,6 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
         </div>
     )
 }
-
 
 export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
 
@@ -119,8 +117,6 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
         )
     }
 
-
-
     return (
         <BreadcrumbItem onClick={() => setIsEditing(true)} className="cursor-pointer hover:text-foreground transition-colors">
             {workflow.name}
@@ -159,8 +155,6 @@ export const EditorHeader = ({ workflowId }: { workflowId: string }) => {
             <div className=" flex flex-row items-center justify-between gap-x-4 w-full">
                 <EditorBreadcrumbs workflowId={workflowId} />
                 <EditorSaveButton workflowId={workflowId} />
-
-
             </div>
         </header>
     );
