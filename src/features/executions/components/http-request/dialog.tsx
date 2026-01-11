@@ -17,7 +17,6 @@ const formSchema = z.object({
     body: z.string().optional(),
 });
 
-
 export type FormType = z.infer<typeof formSchema>;
 
 interface Props {
@@ -185,8 +184,6 @@ export const HttpRequestDialog = ({
                         <DialogFooter className="mt-4">
                             <Button type="submit">Save</Button>
                         </DialogFooter>
-
-
 
                     </form>
                 </Form>
