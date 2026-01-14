@@ -26,12 +26,19 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
             position: { x: number; y: number };
             data?: Record<string, any>;
         }[];
-        const edges = editor.getEdges().map(edge => ({
-            source: edge.source,
-            target: edge.target,
-            sourceHandle: edge.sourceHandle ?? undefined,
-            targetHandle: edge.targetHandle ?? undefined,
-        }));
+
+        // Get the set of valid node IDs to filter edges
+        const nodeIds = new Set(nodes.map(n => n.id));
+
+        // Only include edges where both source and target nodes exist
+        const edges = editor.getEdges()
+            .filter(edge => nodeIds.has(edge.source) && nodeIds.has(edge.target))
+            .map(edge => ({
+                source: edge.source,
+                target: edge.target,
+                sourceHandle: edge.sourceHandle ?? undefined,
+                targetHandle: edge.targetHandle ?? undefined,
+            }));
 
         saveWorkflow.mutate({
             id: workflowId,
