@@ -14,7 +14,7 @@ export type NodeTypeOption = {
     type: NodeType;
     label: string;
     description: string;
-    icon: React.ComponentType<{ className?: string }>;
+    icon: React.ComponentType<{ className?: string }> | string;
 };
 const triggerNodes: NodeTypeOption[] = [
     {
@@ -24,7 +24,16 @@ const triggerNodes: NodeTypeOption[] = [
         icon: MousePointerIcon,
 
     },
+
+    {
+        type: NodeType.GOOGLE_FORM_TRIGGER,
+        label: "Google Form",
+        description: "Runs the flow when a Google Form is submitted",
+        icon: "/logos/googleform.svg"
+
+    },
 ];
+
 const executorNodes: NodeTypeOption[] = [
     {
         type: NodeType.HTTP_REQUEST,
