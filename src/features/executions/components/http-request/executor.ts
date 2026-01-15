@@ -14,9 +14,9 @@ Handlebars.registerHelper("json", (context) => {
 
 
 type HttpRequestData = {
-    variableName: string;
-    endpoint: string;
-    method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+    variableName?: string;
+    endpoint?: string;
+    method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
     body?: string;
 }
 
@@ -34,7 +34,11 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
         }),
     );
 
-    if(!data.endpoint){
+    
+
+    try {
+    const result = await step.run("http-request", async () => {
+        if(!data.endpoint){
         await publish(
             httpRequestChannel().status({
                 nodeId,
@@ -64,9 +68,6 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
         );
         throw new NonRetriableError("HTTP Request node : No method configured")
     }
-
-    try {
-    const result = await step.run("http-request", async () => {
         const endpoint = Handlebars.compile(data.endpoint)(context);
         const method=data.method;
 
