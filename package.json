@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "biome check",
     "ngrok:dev": "ngrok http --url=bobette-fanatical-convergently.ngrok-free.dev 3000",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "prisma": "node node_modules\\prisma\\build\\index.js"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.15",
     "@ai-sdk/google": "^3.0.1",
     "@ai-sdk/openai": "^3.0.1",
     "@hookform/resolvers": "^5.2.2",
