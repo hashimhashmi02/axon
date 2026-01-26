@@ -4,6 +4,7 @@ import {createAnthropic} from "@ai-sdk/anthropic";
 import Handlebars from "handlebars";
 import { generateText } from "ai";
 import { anthropicChannel } from "@/inngest/channels/anthropic";
+import prisma from "@/lib/db";
 
 
 Handlebars.registerHelper("json", (context) => {
@@ -14,6 +15,7 @@ Handlebars.registerHelper("json", (context) => {
 
 type AnthropicData = {
     variableName?: string;
+    credentialId?: string;
     systemPrompt?: string;
     userPrompt?: string;
 }
@@ -42,6 +44,16 @@ export const anthropicExecutor: NodeExecutor<AnthropicData> = async ({
         throw new NonRetriableError("Variable name is required");
     }
 
+     if(!data.credentialId){
+            await publish(
+                anthropicChannel().status({
+                    nodeId,
+                    status: "error",
+                }),
+            );
+            throw new NonRetriableError("Credential is required");
+        }
+
 
     if(!data.userPrompt){
         await publish(
@@ -59,9 +71,19 @@ export const anthropicExecutor: NodeExecutor<AnthropicData> = async ({
 
     const userPrompt = Handlebars.compile(data.userPrompt)(context);
     
-    //TODO FETCH creds the user selected
+ const credential = await step.run("get-credential",() =>{
+        return prisma.credential.findUnique({
+            where: {
+                id: data.credentialId,
+            },
+        });
+    });
 
-    const credentialValue = process.env.ANTHROPIC_API_KEY!;
+    if(!credential){
+        throw new NonRetriableError("Credential not found");
+    }
+
+    const credentialValue = credential.value;
     
     const anthropic = createAnthropic({
         apiKey: credentialValue,
