@@ -23,6 +23,7 @@ type OpenAiData = {
 export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
     data,
     nodeId,
+    userId,
     context,
     step,
     publish,
@@ -74,6 +75,7 @@ export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
             return prisma.credential.findUnique({
                 where: {
                     id: data.credentialId,
+                    userId,
                 },
             });
         });
