@@ -20,7 +20,7 @@ const Page = async ({ params }: PageProps) => {
     prefetchCredential(credentialId);
 
     return (
-        <div className="p-4 md:px-10 mdpy-6 h-full">
+        <div className="p-4 md:px-10 md:py-6 h-full">
             <div className="mx-auto max-w-screen-md-full flex flex-col h-full gap-y-8">
                 <HydrateClient>
                     <ErrorBoundary fallback={<CredentialsError />}>

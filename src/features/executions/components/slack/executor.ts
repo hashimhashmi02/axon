@@ -2,7 +2,7 @@ import type { NodeExecutor } from "@/features/executions/types";
 import { NonRetriableError } from "inngest";
 import Handlebars from "handlebars";
 
-import { discordChannel } from "@/inngest/channels/discord";
+
 import { decode } from "html-entities";
 import ky from "ky";
 import { slackChannel } from "@/inngest/channels/slack";
@@ -29,7 +29,7 @@ export const slackExecutor: NodeExecutor<SlackData> = async ({
     publish,
 }) =>{
     await publish(
-        discordChannel().status({
+        slackChannel().status({
             nodeId,
             status: "loading",
         }),
@@ -38,7 +38,7 @@ export const slackExecutor: NodeExecutor<SlackData> = async ({
 
     if(!data.content){
         await publish(
-            discordChannel().status({
+            slackChannel().status({
                 nodeId,
                 status: "error",
             }),
@@ -53,7 +53,7 @@ export const slackExecutor: NodeExecutor<SlackData> = async ({
     const trimmedContent = content.trim();
     if (!trimmedContent) {
         await publish(
-            discordChannel().status({
+            slackChannel().status({
                 nodeId,
                 status: "error",
             }),
@@ -66,7 +66,7 @@ export const slackExecutor: NodeExecutor<SlackData> = async ({
         const result = await step.run("send-discord-message", async() => {
             if(!data.webhookUrl){
                 await publish(
-                    discordChannel().status({
+                    slackChannel().status({
                         nodeId,
                         status: "error",
                     }),
@@ -123,7 +123,7 @@ export const slackExecutor: NodeExecutor<SlackData> = async ({
 
     } catch (error) {
         await publish(
-            discordChannel().status({
+            slackChannel().status({
                 nodeId,
                 status: "error",
             }),
