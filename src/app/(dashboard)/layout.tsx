@@ -1,12 +1,15 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { Suspense } from "react";
 
-const Layout = ({children}:{children: React.ReactNode;}) =>{
+const Layout = ({ children }: { children: React.ReactNode; }) => {
     return (
         <SidebarProvider>
-            <AppSidebar/>
+            <Suspense fallback={null}>
+                <AppSidebar />
+            </Suspense>
             <SidebarInset className="bg-accent/20">
-            {children}
+                {children}
 
             </SidebarInset>
 
