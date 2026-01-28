@@ -44,3 +44,16 @@ next-env.d.ts
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+GITHUB_PROFILE_README.md
+README.md
+biome.json
+components.json
+next.config.ts
+package-lock.json
+package.json
+postcss.config.mjs
+prisma.config.ts
+sentry.edge.config.ts
+sentry.server.config.ts
+tsconfig.json
